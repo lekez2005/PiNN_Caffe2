@@ -30,17 +30,12 @@ function [sig_act, tanh_act] = pinn_layer(sig_in, tanh_in, tanh_w, sig_w, sig_b,
     tanh_z = tanh_w*tanh_in;
     sig_z = fc(sig_in, sig_w, sig_b);
     inter_z = fc(tanh_z, inter_w, inter_b);
-    sig_act = sigmoid(sig_z + inter_z);
+    sig_act = logsig(sig_z + inter_z);
     tanh_act = tanh(tanh_z);
 end
 
 function out = fc(in, w, b)
 % fully connected layer
 out = w*in + b;
-end
-
-function sig = sigmoid(x)
-    %sig = 1./(1 + exp(-x));
-    sig = (tanh(x/2) + 1)/2;
 end
 
